@@ -94,8 +94,8 @@ PayloadBot = {
     });
   },
   checkSay: function(data){
-    if(data.comment !== undefined && data.comment.indexOf("#say") > -1){
-      var comment = data.comment.replace('#say', '');
+    if(data.last_comment !== undefined && data.last_comment.indexOf("#say") > -1){
+      var comment = data.last_comment.replace('#say', '');
       var msg = new SpeechSynthesisUtterance(comment);
       window.speechSynthesis.speak(msg);
     }
