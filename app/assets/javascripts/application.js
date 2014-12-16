@@ -15,45 +15,78 @@
 //= require turbolinks
 //= require_tree .
 
-function makeSound(){
-  play_multi_sound('multiaudio1');
-}
-
-var channel_max = 10;                   // number of channels
-audiochannels = new Array();
-for (a=0;a<channel_max;a++) {                 // prepare the channels
-  audiochannels[a] = new Array();
-  audiochannels[a]['channel'] = new Audio();            // create a new audio object
-  audiochannels[a]['finished'] = -1;              // expected end time for this channel
-}
-function play_multi_sound(s) {
-  for (a=0;a<audiochannels.length;a++) {
-    thistime = new Date();
-    if (audiochannels[a]['finished'] < thistime.getTime()) {      // is this channel finished?
-      audiochannels[a]['finished'] = thistime.getTime() + document.getElementById(s).duration*1000;
-      audiochannels[a]['channel'].src = document.getElementById(s).src;
-      audiochannels[a]['channel'].load();
-      audiochannels[a]['channel'].play();
-      break;
+TNY = {
+  storedDate : 0,
+  channel_max: 10,
+  audiochannels: [],
+  thistime: 0,
+  blastOff: function(){
+    this.setupAudioChannel();
+  },
+  runCheck: function(){
+    var self = this;
+    window.setInterval(function(){
+      self.checkPR();
+    }, 250);
+  },
+  setupAudioChannel: function(){
+    var self = this;
+    for (a=0;a<self.channel_max;a++) {                 // prepare the channels
+      self.audiochannels[a] = new Array();
+      self.audiochannels[a]['channel'] = new Audio();            // create a new audio object
+      self.audiochannels[a]['finished'] = -1;              // expected end time for this channel
+    }
+  },
+  play_multi_sound: function(s) {
+    var self = this;
+    for (a=0;a<self.audiochannels.length;a++) {
+      self.thistime = new Date();
+      if (self.audiochannels[a]['finished'] < self.thistime.getTime()) {      // is this channel finished?
+        self.audiochannels[a]['finished'] = self.thistime.getTime() + document.getElementById(s).duration*1000;
+        self.audiochannels[a]['channel'].src = document.getElementById(s).src;
+        self.audiochannels[a]['channel'].load();
+        self.audiochannels[a]['channel'].play();
+        break;
+      }
+    }
+  },
+  checkPR: function(){
+    if( location.origin.indexOf('nypullrequest') !== false ){
+      var url = location.origin + '/update';
+      this.getFromServer(url);
+    }
+  },
+  getFromServer: function(url){
+    var self = this;
+    $.ajax({
+     type: 'GET',
+     url: url,
+     success: function(data, textStatus, request){
+        console.log(storedData);
+        console.log(data.count);
+        if(self.storedData < data.count){
+          self.processPayload(data, textStatus, request);
+          self.storedData = data.count;
+        }
+     }
+    });
+  },
+  processPayload: function(data, textStatus, request){
+    var payloadEvent = request.getResponseHeader('X-GitHub-Event');
+    var self = this;
+    switch (payloadEvent){
+      case 'push': 
+        self.play_multi_sound('push-sound');
+      case 'release': 
+        self.play_multi_sound('release-sound');
+      case 'create': 
+        self.play_multi_sound('branch-sound');
+      case 'issue_comment': 
+        self.play_multi_sound('comment-sound');
+      case 'pull_request': 
+        self.play_multi_sound('pull-request-sound');
+      default:
+        self.play_multi_sound('default-sound');
     }
   }
-}
-
-function checkPR(){
-  if( location.origin.indexOf('nypullrequest') !== false ){
-    var url = location.origin + '/update';
-    $.get( url, function( data ) {
-      console.log(storedData);
-      console.log(data.count);
-      if(storedData < data.count){
-        storedData = data.count;
-        makeSound();
-      }
-    });
-  }
-}
-
-var storedData = 0;
-window.setInterval(function(){
-  checkPR();
-}, 250);
+};
