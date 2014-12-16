@@ -96,24 +96,29 @@ PayloadBot = {
     });
   },
   processPayload: function(data, textStatus, request){
-    var payloadEvent = request.getResponseHeader('X-GitHub-Event');
+    console.log(data.last_payload);
     var self = this;
-    switch (payloadEvent){
+    switch (data.last_payload){
       case 'push': 
         console.log("Event: push");
         self.play_multi_sound('push-sound');
+        break;
       case 'release': 
         console.log("Event: release");
         self.play_multi_sound('release-sound');
+        break;
       case 'create': 
         console.log("Event: create");
         self.play_multi_sound('branch-sound');
+        break;
       case 'issue_comment': 
         console.log("Event: issue_comment");
         self.play_multi_sound('comment-sound');
+        break;
       case 'pull_request': 
         console.log("Event: pull_request");
         self.play_multi_sound('pull-request-sound');
+        break;
       default:
         console.log("Event: default");
         self.play_multi_sound('default-sound');
