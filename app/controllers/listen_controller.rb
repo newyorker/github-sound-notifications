@@ -3,10 +3,12 @@ class ListenController < ApplicationController
   def receive
     # puts request.body.read
     event = request.headers['X-GitHub-Event']
-    render text: "Thanks for sending a POST request with cURL! Payload: #{request.body.read}"
+    payload = request.body.read
     if event == 'issue_comment'
-      r = Record.new(payload: event, comment:request.body.read.comment.body)
+      render text: "Thanks for sending a POST request with cURL! Comment: #{payload['comment']['body']}"
+      r = Record.new(payload: event, comment: payload.comment.body)
     else
+      render text: "Thanks for sending a POST request with cURL! Payload: #{payload}"
       r = Record.new(payload: event)
     end
     r.save
