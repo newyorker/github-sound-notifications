@@ -4,7 +4,7 @@ class ListenController < ApplicationController
     # puts request.body.read
     event = request.headers['X-GitHub-Event']
     payload = request.body.read
-    comment = payload.comment.body
+    comment = payload
     if event == 'issue_comment'
       puts comment
       render text: "Thanks for sending a POST request with cURL! Comment: #{coment}"
