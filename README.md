@@ -1,24 +1,36 @@
+![](https://github.com/newyorker/github-sound-notifications/blob/master/readme/head.png)
+
 # Sound Notification Bot
 
 Notify your team with sound when your Github repository changes. 
 
-## How it works
+## Getting started
 
-1. Set up a Heroku instance of the Payload Sound Bot.
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/newyorker/github-sound-notifications)
 
-2. Set up a Github webhook to your heroku endpoint. Set up the webhook with "everything".
+1. Set up a Heroku instance of the Github Sound Notifications repository with your custom URL. 
 
+2. Set up a Github webhook to your Heroku endpoint. The heroku endpoint is `http://{{your-heroku-name}}.herokuapp.com/listen`. 
+
+3. Set up the webhook with "everything".
 Example Webhook: `http://your-heroku-name.herokuapp.com/listen`
 
-3. Open the bot up on the machine that will notify. 
-
+4. Open the bot up on the machine that will notify. 
 Example URL: `http://your-heroku-name.herokuapp.com/`
 
-Enjoy
+![](https://github.com/newyorker/github-sound-notifications/blob/master/readme/webhook.png)
+
 
 ## Credits
 
-Sounds from [Patatap](http://patatap.com).
+Code from [New Yorker](http://www.github.com/newyorker).
 
-Code from [New Yorker](http://www.newyorker.com).
+[Assets from theses awesome folks](https://github.com/newyorker/github-sound-notifications/blob/master/readme/credits.md).
 
+## Issues or questions
+
+[Submit an issue](https://github.com/newyorker/most-popular/issues) or [email Leonard Bogdonoff](mailto:leonard_bogdonoff@condenast.com)
+
+## License
+
+License: [The MIT License (MIT)](http://opensource.org/licenses/MIT)
