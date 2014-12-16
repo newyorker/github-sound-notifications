@@ -13,17 +13,11 @@
 
 ActiveRecord::Schema.define(version: 20141216221817) do
 
-  create_table "histories", force: true do |t|
-    t.string   "action"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "records", force: true do |t|
     t.text     "payload"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "comment"
+    t.text     "comment"
   end
 
 end
