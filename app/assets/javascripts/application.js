@@ -42,12 +42,14 @@ PayloadBot = {
     });
   },
   startInterval: function(){
+    console.log('Started');
     var self = this;
     this.interval = window.setInterval(function(){
       self.checkPR();
     }, 250);
   },
   stopInterval: function(){
+    console.log('Stopped');
     var self = this;
     clearInterval(self.interval);
   },
@@ -98,22 +100,22 @@ PayloadBot = {
     var self = this;
     switch (payloadEvent){
       case 'push': 
-        console.log("case 'push':");
+        console.log("Event: push");
         self.play_multi_sound('push-sound');
       case 'release': 
-        console.log("case 'release':");
+        console.log("Event: release");
         self.play_multi_sound('release-sound');
       case 'create': 
-        console.log("case 'create':");
+        console.log("Event: create");
         self.play_multi_sound('branch-sound');
       case 'issue_comment': 
-        console.log("case 'issue_comment':");
+        console.log("Event: issue_comment");
         self.play_multi_sound('comment-sound');
       case 'pull_request': 
-        console.log("case 'pull_request':");
+        console.log("Event: pull_request");
         self.play_multi_sound('pull-request-sound');
       default:
-        console.log("default");
+        console.log("Event: default");
         self.play_multi_sound('default-sound');
     }
   }
