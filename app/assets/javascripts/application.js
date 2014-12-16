@@ -15,7 +15,7 @@
 //= require turbolinks
 //= require_tree .
 
-TNY = {
+PayloadBot = {
   storedData : 0,
   channel_max: 10,
   audiochannels: [],
@@ -28,7 +28,7 @@ TNY = {
     var $button = $('.interval-button');
     var self = this;
     $button.on('click', function(e){
-      console.log('button pressed');
+      // console.log('button pressed');
       e.preventDefault();
       if($button.hasClass('pressed')){
         self.stopInterval();
@@ -119,4 +119,4 @@ TNY = {
   }
 };
 
-TNY.blastOff();
+$(document).on('ready', function(){PayloadBot.blastOff()});
