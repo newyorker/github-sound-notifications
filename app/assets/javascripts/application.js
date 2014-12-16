@@ -75,10 +75,8 @@ PayloadBot = {
     }
   },
   checkPR: function(){
-    if( location.origin.indexOf('nypullrequest') !== false ){
-      var url = location.origin + '/update';
-      this.getFromServer(url);
-    }
+    var url = location.origin + '/update';
+    this.getFromServer(url);
   },
   getFromServer: function(url){
     var self = this;
@@ -126,4 +124,6 @@ PayloadBot = {
   }
 };
 
-$(document).on('ready', function(){PayloadBot.blastOff()});
+$(document).on('ready', function(){
+  PayloadBot.blastOff()
+});
