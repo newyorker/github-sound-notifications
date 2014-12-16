@@ -4,9 +4,10 @@ class ListenController < ApplicationController
     # puts request.body.read
     event = request.headers['X-GitHub-Event']
     render text: "Thanks for sending a POST request with cURL! Payload: #{request.body.read}"
-    r = Record.new(payload: event)
     if event == 'issue_comment'
-      r.comment = request.body.read.comment.body
+      r = Record.new(payload: event, comment:request.body.read.comment.body)
+    else
+      r = Record.new(payload: event)
     end
     r.save
   end
