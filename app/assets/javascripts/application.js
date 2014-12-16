@@ -93,6 +93,13 @@ PayloadBot = {
      }
     });
   },
+  checkSay: function(data){
+    if(data.comment.indexOf("#say") > -1){
+      var comment = data.comment.replace('#say', '');
+      var msg = new SpeechSynthesisUtterance(comment);
+      window.speechSynthesis.speak(msg);
+    }
+  },
   processPayload: function(data, textStatus, request){
     console.log(data.last_payload);
     var self = this;
@@ -111,6 +118,7 @@ PayloadBot = {
         break;
       case 'issue_comment': 
         console.log("Event: issue_comment");
+        self.checkSay(data);
         self.play_multi_sound('comment-sound');
         break;
       case 'pull_request': 
