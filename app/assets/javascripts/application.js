@@ -118,6 +118,7 @@ PayloadBot = {
         break;
       case 'issue_comment': 
         console.log("Event: issue_comment");
+        console.log(data);
         self.checkSay(data);
         self.play_multi_sound('comment-sound');
         break;
