@@ -8,7 +8,7 @@ class ListenController < ApplicationController
     if event == 'issue_comment'
       puts comment
       render text: "Thanks for sending a POST request with cURL! Comment: #{comment}"
-      r = Record.new(payload: event, comment: payload.comment.body)
+      r = Record.new(payload: event, comment: comment)
     else
       render text: "Thanks for sending a POST request with cURL! Payload: #{payload}"
       r = Record.new(payload: event)
