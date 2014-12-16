@@ -16,18 +16,40 @@
 //= require_tree .
 
 TNY = {
-  storedDate : 0,
+  storedData : 0,
   channel_max: 10,
   audiochannels: [],
   thistime: 0,
   blastOff: function(){
     this.setupAudioChannel();
+    this.events();
   },
-  runCheck: function(){
+  events: function(){
+    var $button = $('.interval-button');
     var self = this;
-    window.setInterval(function(){
+    $button.on('click', function(e){
+      console.log('button pressed');
+      e.preventDefault();
+      if($button.hasClass('pressed')){
+        self.stopInterval();
+        $button.html('Start Interval');
+        $button.removeClass('pressed');
+      } else {
+        self.startInterval();
+        $button.addClass('pressed');
+        $button.html('Stop Interval');
+      }
+    });
+  },
+  startInterval: function(){
+    var self = this;
+    this.interval = window.setInterval(function(){
       self.checkPR();
     }, 250);
+  },
+  stopInterval: function(){
+    var self = this;
+    clearInterval(self.interval);
   },
   setupAudioChannel: function(){
     var self = this;
@@ -62,8 +84,8 @@ TNY = {
      type: 'GET',
      url: url,
      success: function(data, textStatus, request){
-        console.log(storedData);
-        console.log(data.count);
+        // console.log(self.storedData);
+        // console.log(data.count);
         if(self.storedData < data.count){
           self.processPayload(data, textStatus, request);
           self.storedData = data.count;
@@ -76,17 +98,25 @@ TNY = {
     var self = this;
     switch (payloadEvent){
       case 'push': 
+        console.log("case 'push':");
         self.play_multi_sound('push-sound');
       case 'release': 
+        console.log("case 'release':");
         self.play_multi_sound('release-sound');
       case 'create': 
+        console.log("case 'create':");
         self.play_multi_sound('branch-sound');
       case 'issue_comment': 
+        console.log("case 'issue_comment':");
         self.play_multi_sound('comment-sound');
       case 'pull_request': 
+        console.log("case 'pull_request':");
         self.play_multi_sound('pull-request-sound');
       default:
+        console.log("default");
         self.play_multi_sound('default-sound');
     }
   }
 };
+
+TNY.blastOff();

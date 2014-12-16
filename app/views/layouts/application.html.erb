@@ -5,10 +5,13 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+
 </head>
 <body>
 
 <h1>New Yorker Pull Request Notifier</h1>
+
+<a href="#" class="button interval-button">Start Interval</a>
 
 <audio id="push-sound" src="audio/dotted-spiral.mp3" preload="auto"></audio>
 <audio id="comment-sound" src="audio/glimmer.mp3" preload="auto"></audio>
