@@ -97,7 +97,7 @@ PayloadBot = {
   setUpSpeech: function(){
     this.voices = speechSynthesis.getVoices();
     this.voiceList = [];
-    voices.forEach(function(voice, i) {
+    this.voices.forEach(function(voice, i) {
       this.voiceList.push(voice.name);
     });
   },
