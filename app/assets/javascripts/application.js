@@ -22,6 +22,7 @@ PayloadBot = {
   thistime: 0,
   blastOff: function(){
     this.setupAudioChannel();
+    this.setUpSpeech();
     this.events();
   },
   events: function(){
@@ -93,10 +94,22 @@ PayloadBot = {
      }
     });
   },
+  setUpSpeech: function(){
+    this.voices = speechSynthesis.getVoices();
+    this.voiceList = [];
+    voices.forEach(function(voice, i) {
+      this.voiceList.push(voice.name);
+    });
+  },
   checkSay: function(data){
     if(data.last_comment !== undefined && data.last_comment.indexOf("#say") > -1){
       var comment = data.last_comment.replace('#say', '');
       var msg = new SpeechSynthesisUtterance(comment);
+      if(data.last_comment.indexOf("#voice") > -1){
+        data.last_comment = data.last_comment.replace('#voice', '');
+        var voice = data.last_comment[0]
+        msg.voice = speechSynthesis.getVoices()[voice];
+      }
       window.speechSynthesis.speak(msg);
     }
   },
