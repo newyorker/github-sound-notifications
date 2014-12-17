@@ -95,7 +95,7 @@ PayloadBot = {
     });
   },
   setUpSpeech: function(){
-    this.voices = speechSynthesis.getVoices();
+    this.voices = window.speechSynthesis.getVoices();
     this.voiceList = [];
     this.voices.forEach(function(voice, i) {
       this.voiceList.push(voice.name);
