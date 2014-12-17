@@ -104,12 +104,13 @@ PayloadBot = {
   checkSay: function(data){
     if(data.last_comment !== undefined && data.last_comment.indexOf("#say") > -1){
       var comment = data.last_comment.replace('#say', '');
-      var msg = new SpeechSynthesisUtterance(comment);
+      var msg = new SpeechSynthesisUtterance();
       if(data.last_comment.indexOf("#voice") > -1){
-        data.last_comment = data.last_comment.replace('#voice', '');
+        comment = comment.replace('#voice', '');
         var voice = data.last_comment[0]
         msg.voice = speechSynthesis.getVoices()[voice];
       }
+      msg.text = comment;
       window.speechSynthesis.speak(msg);
     }
   },
