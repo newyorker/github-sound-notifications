@@ -107,7 +107,7 @@ PayloadBot = {
       var msg = new SpeechSynthesisUtterance();
       if(data.last_comment.indexOf("#voice") > -1){
         comment = comment.replace('#voice', '');
-        var voice = data.last_comment[0]
+        var voice = comment[0]
         msg.voice = speechSynthesis.getVoices()[voice];
       }
       msg.text = comment;
