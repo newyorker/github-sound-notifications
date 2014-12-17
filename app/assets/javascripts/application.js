@@ -104,12 +104,21 @@ PayloadBot = {
   checkSay: function(data){
     if(data.last_comment !== undefined && data.last_comment.indexOf("#say") > -1){
       var comment = data.last_comment.replace('#say', '');
+      var words, voice;
       var msg = new SpeechSynthesisUtterance();
-      if(data.last_comment.indexOf("#voice") > -1){
+      if(words.indexOf("#voice") > -1){
+        console.log('true');
         comment = comment.replace('#voice', '');
-        var voice = comment[0];
+        comment = comment.trim();
+        words = comment.split(' ');
+        voice = parseInt(words[0], 10);
+        words.shift();
+        comment = words.join(' ');
+        console.log(voice);
         msg.voice = speechSynthesis.getVoices()[voice];
       }
+      msg.text = comment;
+      window.speechSynthesis.speak(msg);
       msg.text = comment;
       window.speechSynthesis.speak(msg);
     }
