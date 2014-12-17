@@ -119,8 +119,6 @@ PayloadBot = {
       }
       msg.text = comment;
       window.speechSynthesis.speak(msg);
-      msg.text = comment;
-      window.speechSynthesis.speak(msg);
     }
   },
   processPayload: function(data, textStatus, request){
