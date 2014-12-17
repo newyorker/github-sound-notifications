@@ -103,10 +103,10 @@ PayloadBot = {
   },
   checkSay: function(data){
     if(data.last_comment !== undefined && data.last_comment.indexOf("#say") > -1){
-      var comment = data.last_comment.replace('#say', '');
+      var comment = data.last_comment.replace('#say ', '');
       var words, voice;
       var msg = new SpeechSynthesisUtterance();
-      if(words.indexOf("#voice") > -1){
+      if(comment.indexOf("#voice") > -1){
         console.log('true');
         comment = comment.replace('#voice', '');
         comment = comment.trim();
